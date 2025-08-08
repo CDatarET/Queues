@@ -156,5 +156,5 @@ int main(){
         scanf("%d", &run);
     }
     printf("Goodbye World\n");
-    return(0);
+    return(0);
 }

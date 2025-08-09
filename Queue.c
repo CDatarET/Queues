@@ -9,18 +9,18 @@ struct job{
 };
 
 int isFullLinear(int r){
-    if(r >= max){
+    if(r == max - 1){
         return(1);
     }
     return(0);
 }
 
-void insertLinear(struct job Q[], int r){
-    r++;
+int insertLinear(struct job Q[], int r){
     if(isFullLinear(r)){
         printf("Queue is Full!\n");
-        return;
+        return(r);
     }
+    r++;
     printf("enter job id\n");
     scanf("%d", &Q[r].jobId);
 
@@ -29,6 +29,7 @@ void insertLinear(struct job Q[], int r){
 
     printf("enter job priority\n");
     scanf("%d", &Q[r].priority);
+    return(r);
 }
 
 int isEmpty(int f, int r){
@@ -38,13 +39,14 @@ int isEmpty(int f, int r){
     return(0);
 }
 
-void deleteLinear(struct job Q[], int f, int r){
+int deleteLinear(struct job Q[], int f, int r){
     if(isEmpty(f, r)){
         printf("Queue is Empty!\n");
-        return;
+        return(f);
     }
     f++;
     printf("Deleted job is %s, ID# %d, with priority of %d\n", Q[f].jobName, Q[f].jobId, Q[f].priority);
+    return(f);
 }
 
 void dispLinear(struct job Q[], int f, int r){
@@ -120,13 +122,11 @@ int main(){
         scanf("%d", &operation);
         switch(operation){
             case 1:
-                insertLinear(LQ, linearR);
-                linearR++;
+                linearR = insertLinear(LQ, linearR);
                 break;
 
             case 2:
-                deleteLinear(LQ, linearF, linearR);
-                linearF++;
+                linearF = deleteLinear(LQ, linearF, linearR);
                 break;
             
             case 3:

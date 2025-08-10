@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define max 20
+#define max 5
     //Task- to implement linear and circular queue in C
 
 struct job{
@@ -60,15 +60,13 @@ int isFullCircular(int r, int f){
     if((r + 1) % max == f){
         return(1);
     }
-    else{
-        return(0);
-    }
+    return(0);
 }
 
-void insertCircular(struct job Q[], int f, int r){
+int insertCircular(struct job Q[], int f, int r){
     if(isFullCircular(r, f)){
         printf("Queue is Full!\n");
-        return;
+        return r;
     }
 
     r = (r + 1) % max;
@@ -80,24 +78,27 @@ void insertCircular(struct job Q[], int f, int r){
 
     printf("enter job priority\n");
     scanf("%d", &Q[r].priority);
+    return r;
 }
 
-void deleteCircular(struct job Q[], int f, int r){
+int deleteCircular(struct job Q[], int f, int r){
     if(isEmpty(f, r)){
         printf("Queue is empty!\n");
-        return;
+        return(f);
     }
 
     f = (f + 1) % max;
     printf("Deleted job is %s, ID# %d, with priority of %d\n", Q[f].jobName, Q[f].jobId, Q[f].priority);
+    return(f);
 }
 
 void dispCircular(struct job Q[], int f, int r){
     printf("ID#\t Name\t Priority\n");
-    for(int i = (f + 1) % 20; i <= r; i++){
+    for(int i = f + 1; i <= ((r + 1) % max) - 1; i++){
         printf("%d\t %s\t %d\n", Q[i].jobId, Q[i].jobName, Q[i].priority);
     }
 }
+
 
 int main(){
     printf("Hello World\n");
@@ -134,13 +135,11 @@ int main(){
                 break;
 
             case 4:
-                insertCircular(CQ, circularF, circularR);
-                circularR = (circularR + 1) % 20;
+                circularR = insertCircular(CQ, circularF, circularR);
                 break;
 
             case 5:
-                deleteCircular(CQ, circularF, circularR);
-                circularF = (circularF + 1) % 20;
+                circularF = deleteCircular(CQ, circularF, circularR);
                 break;
 
             case 6:

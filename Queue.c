@@ -94,8 +94,10 @@ int deleteCircular(struct job Q[], int f, int r){
 
 void dispCircular(struct job Q[], int f, int r){
     printf("ID#\t Name\t Priority\n");
-    for(int i = f + 1; i <= ((r + 1) % max) - 1; i++){
+    int i = (f + 1) % max;
+    while (i != (r + 1) % max) {
         printf("%d\t %s\t %d\n", Q[i].jobId, Q[i].jobName, Q[i].priority);
+        i = (i + 1) % max;
     }
 }
 
